@@ -1,53 +1,67 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Task from "./pages/Task";
-import { useState} from "react";
+import { useState } from "react";
 
 function App() {
-  const intialData = {
+  const initialData = {
     title: "",
     description: "",
-  }
-  const [formData, setFormData] = useState(intialData);
+  };
+
+  const [formData, setFormData] = useState(initialData);
   const [tableData, setTableData] = useState([]);
   const [editTask, setEditTask] = useState(null);
+
   const handleDataChange = (key, value) => {
     setFormData({
       ...formData,
       [key]: value,
-      
-    })
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (editTask == null) {
+
+    if (editTask === null) {
       setTableData([...tableData, formData]);
-      setFormData(intialData);
+      setFormData(initialData);
     } else {
-      tableData[editTask] = formData;
-      setTableData(tableData);
+      const updatedData = [...tableData];
+      updatedData[editTask] = formData;
+      setTableData(updatedData);
       setEditTask(null);
+      setFormData(initialData);
     }
   };
-  const handleEdit=(index)=>{
-    const clickItem=tableData[index];
+
+  const handleEdit = (index) => {
+    const clickItem = tableData[index];
     setFormData(clickItem);
     setEditTask(index);
-  }
-  const handleDelete=(index)=>{
-    tableData.splice(index,1);
-    setTableData([...tableData]);
-  }
+  };
+
+  const handleDelete = (index) => {
+    const updatedData = [...tableData];
+    updatedData.splice(index, 1);
+    setTableData(updatedData);
+  };
 
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        <Route path="/" element={<Home  handleDelete={handleDelete} handleEdit={handleEdit} tableData={tableData} />} />
-        <Route path="/task" element={<Task handleSubmit={handleSubmit} handleDataChange={handleDataChange} formData={formData} />} />
+        <Route
+          path="/"
+          element={<Home handleDelete={handleDelete} handleEdit={handleEdit} tableData={tableData} />}
+        />
+        <Route
+          path="/task"
+          element={<Task handleSubmit={handleSubmit} handleDataChange={handleDataChange} formData={formData} />}
+        />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
 export default App;
+
