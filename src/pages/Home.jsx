@@ -1,12 +1,13 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
 
 
 const Home = ({ handleEdit, handleDelete, tableData }) => {
     return (
         <>
-            <nav className='bg-red-500 text-white p-6 text-center text-xl' >
-                <a href="/">Home</a> <span>|</span> <a href="/task">Create a Task</a>
+
+            <nav className='bg-red-500 text-white p-6 text-center text-xl'>
+                <Link to="/">Home</Link> <span>|</span> <Link to="/task">Create a Task</Link>
             </nav>
             <section className='my-6 flex justify-end mx-8 md:mx-28'>
                 <select name="" id="" className='my-6 '>

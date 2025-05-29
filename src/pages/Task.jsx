@@ -1,13 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 
-const Task = ({ handleSubmit, handleDataChange,formData }) => {
+const Task = ({ handleSubmit, handleDataChange, formData }) => {
 
 
     return (
         <>
-            <nav className='bg-red-500 text-white p-6 text-center text-xl'  >
-                <a href="/">Home</a> <span>|</span> <a href="/task">Create a Task</a>
+
+            <nav className='bg-red-500 text-white p-6 text-center text-xl'>
+                <Link to="/">Home</Link> <span>|</span> <Link to="/task">Create a Task</Link>
             </nav>
             <form action="" className='flex flex-col  items-center  my-12 text-xl' onSubmit={handleSubmit} >
                 <h1>MEMO THE TASK</h1>
@@ -27,13 +29,13 @@ const Task = ({ handleSubmit, handleDataChange,formData }) => {
                                 handleDataChange("description", value);
                             }} /></td>
                         </tr>
-                        <tr> 
+                        <tr>
                             <td className='flex  '>Status : </td>
                             <td> <select name="status" id="" value={formData.status} onChange={(e) => {
                                 const { value } = e.target;
                                 handleDataChange("status", value);
                             }}> <option value="pending">pending</option>
-                            <option value="completed">completed</option></select>  </td>
+                                <option value="completed">completed</option></select>  </td>
                         </tr>
                         <tr>
                             <td ></td>
